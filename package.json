@@ -1,0 +1,32 @@
+{
+	"name": "apm",
+	"version": "1.0.0",
+	"description": "Actions per minute! Or any other time, actually.",
+	"main": "source/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dodekeract/apm.git"
+	},
+	"keywords": [
+		"time",
+		"actions-per-minute",
+		"apm",
+		"interval",
+		"fps",
+		"average"
+	],
+	"author": "Florian Wendelborn",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/dodekeract/apm/issues"
+	},
+	"homepage": "https://github.com/dodekeract/apm#readme",
+	"jscsConfig": {
+		  "validateIndentation": "\t"
+		, "requirePaddingNewLinesAfterBlocks": false
+		, "requireTrailingComma": false
+		, "requireSpacesInsideObjectBrackets": false
+		, "validateQuoteMarks": false
+		, "disallowSpacesInFunctionDeclaration": false
+	}
+}
