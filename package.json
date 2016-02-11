@@ -1,6 +1,6 @@
 {
 	"name": "apm",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Actions per minute! Or any other time, actually.",
 	"main": "source/",
 	"repository": {
@@ -15,6 +15,9 @@
 		"fps",
 		"average"
 	],
+	"scripts": {
+		"prepublish" : "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
+	},
 	"author": "Florian Wendelborn",
 	"license": "MIT",
 	"bugs": {
