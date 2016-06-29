@@ -1,35 +1,40 @@
 {
-	"name": "apm",
-	"version": "1.0.1",
-	"description": "Actions per minute! Or any other time, actually.",
-	"main": "source/",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/dodekeract/apm.git"
-	},
-	"keywords": [
-		"time",
-		"actions-per-minute",
-		"apm",
-		"interval",
-		"fps",
-		"average"
-	],
-	"scripts": {
-		"prepublish" : "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
-	},
-	"author": "Florian Wendelborn",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/dodekeract/apm/issues"
-	},
-	"homepage": "https://github.com/dodekeract/apm#readme",
-	"jscsConfig": {
-		  "validateIndentation": "\t"
-		, "requirePaddingNewLinesAfterBlocks": false
-		, "requireTrailingComma": false
-		, "requireSpacesInsideObjectBrackets": false
-		, "validateQuoteMarks": false
-		, "disallowSpacesInFunctionDeclaration": false
-	}
+  "name": "apm",
+  "version": "1.0.2",
+  "description": "Actions per minute! Or any other time, actually.",
+  "main": "build/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dodekeract/apm.git"
+  },
+  "keywords": [
+    "time",
+    "actions-per-minute",
+    "apm",
+    "interval",
+    "fps",
+    "average"
+  ],
+  "scripts": {
+    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
+    "build": "babel --presets es2015 source/ -d build/"
+  },
+  "author": "Florian Wendelborn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dodekeract/apm/issues"
+  },
+  "homepage": "https://github.com/dodekeract/apm#readme",
+  "jscsConfig": {
+    "validateIndentation": "\t",
+    "requirePaddingNewLinesAfterBlocks": false,
+    "requireTrailingComma": false,
+    "requireSpacesInsideObjectBrackets": false,
+    "validateQuoteMarks": false,
+    "disallowSpacesInFunctionDeclaration": false
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0"
+  }
 }

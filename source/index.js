@@ -1,47 +1,54 @@
-function Module (options) {
-	this.options = options;
-	this.accuracy = options.accuracy || 1;
-	this.timeSpan = options.timeSpan || 60;
-	if (this.accuracy > this.timeSpan) {
-		throw new Error('invalid arguments');
-	}
-	this.data = [];
-	for (var i = 0; i < this.timeSpan; i += this.accuracy) {
-		this.data[i] = {
-			lastUpdate: 0,
-			amount: 0
-		};
-	}
-}
+export default class APM {
 
-Module.prototype.action = function (id, amount) {
-	if (!amount) {
-		amount = 1;
-	}
-	var index = Math.floor(
-		(
-			Date.now() % (
-				this.timeSpan * 1000
-			)
-		) / (
-			this.accuracy * 1000
-		)
-	);
-	if (this.data[index].lastUpdate - Date.now() > (this.timeSpan * 1000)) {
-		this.data[index].amount = 0;
-	}
-	this.data[index].lastUpdate = Date.now();
-	this.data[index].amount += amount;
-};
+	constructor (options) {
+		Object.assign(this, {
+			accuracy: 1000,
+			timeSpan: 60000,
+			data: []
+		}, options);
 
-Module.prototype.get = function () {
-	var result = 0;
-	this.data.forEach(function (e) {
-		if (e.lastUpdate - Date.now() > (this.timeSpan * 1000)) {
-			result += e.amount;
+		for (let i = 0; i < this.timeSpawn; i += this.accuracy) {
+			this.data[i] = {
+				lastUpdate: 0,
+				amount: {}
+			};
 		}
-	});
-	return result;
-};
+	}
 
-module.exports = Module;
+	action (id, amount = 1) {
+
+		const {timeSpan, data, accuracy} = this;
+		const now = Date.now();
+
+		const index = Math.floor((
+			now % timeSpan
+		) / (
+			accuracy * 1000
+		));
+
+		const pointer = data[index];
+
+		if (pointer.lastUpdate - now > timeSpan) {
+			pointer.amount = {};
+		}
+		pointer.lastUpdate = now;
+		if (pointer.amount[id] === undefined) pointer.amount[id] = 0;
+		pointer.amount[id] += amount;
+	}
+
+	get (id) {
+		const {data, timeSpan} = this;
+		const now = Date.now();
+
+		let result = 0;
+
+		data.forEach(({lastUpdate, amount}) => {
+			if (lastUpdate - now > timeSpan) {
+				if (amount[id]) result += amount;
+			}
+		});
+
+		return result;
+	}
+
+}
